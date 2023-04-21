@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1cf937549922cb40920ee186fc1a776, type: 3}
+  m_Name: 5_Charmeleon
+  m_EditorClassIdentifier: 
+  name: Charmeleon
+  description: 
+  frontSprite: {fileID: 21300000, guid: 3959e53b550619745b3d4e6f13e7cfa6, type: 3}
+  backSprite: {fileID: 21300000, guid: 1e8bf8fe42c9e7745bb14d495548cdd4, type: 3}
+  type1: 2
+  type2: 0
+  maxHp: 58
+  attack: 64
+  defense: 58
+  spAttack: 80
+  spDefense: 65
+  speed: 80
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: c9c8dfb05cb76474c9d0e71523871be3, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 447d0619d770803488eff0f49ff469dd, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: e3d9d3e37d9826046af7367e7e8b2e37, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: fd27d335044b48744951ea12463e5f61, type: 2}
+    level: 1

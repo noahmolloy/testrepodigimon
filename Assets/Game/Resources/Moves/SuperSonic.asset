@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab889c2871e25fe41b132e1492a2f511, type: 3}
   m_Name: SuperSonic
   m_EditorClassIdentifier: 
-  name: 
+  name: Super Sonic
   description: 
-  type: 0
+  type: 1
   power: 0
-  accuracy: 0
-  pp: 0
-  category: 0
+  accuracy: 100
+  pp: 20
+  category: 2
   effects:
     boosts: []
     status: 0
-    volatileStatus: 0
+    volatileStatus: 6
   target: 0
