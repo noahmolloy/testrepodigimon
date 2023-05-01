@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Unlikely to need change
+
 [CreateAssetMenu(fileName = "Move", menuName = "Pokemon/Create new move")]
 
 public class MoveBase : ScriptableObject

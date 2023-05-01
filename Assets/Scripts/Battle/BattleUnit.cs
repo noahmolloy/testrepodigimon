@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
+//Unlikely needs change
+
 public class BattleUnit : MonoBehaviour
 {
     [SerializeField] bool isPlayerUnit;
@@ -24,7 +26,7 @@ public class BattleUnit : MonoBehaviour
     Vector3 originalPos;
     Color originalColor;
 
-    private void Awake()
+    private void Awake() //initialization
     {
         image = GetComponent<Image>();
         originalPos = image.transform.localPosition;
@@ -32,7 +34,7 @@ public class BattleUnit : MonoBehaviour
     }
 
 
-    public void Setup(Pokemon pokemon)
+    public void Setup(Pokemon pokemon) //loads data into battle scene in unity
     {
         Pokemon = pokemon;
         if (isPlayerUnit)

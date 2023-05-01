@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Unlikely needs change
+
 public class NPCController : MonoBehaviour, Interactable
 {
     [SerializeField] Dialog dialog;

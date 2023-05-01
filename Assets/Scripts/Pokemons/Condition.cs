@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Unlikely to need change
+
 public class Condition
 {
     public ConditionID Id { get; set; }

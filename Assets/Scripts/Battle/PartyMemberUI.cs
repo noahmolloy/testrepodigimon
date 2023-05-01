@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Unlikely needs change
+
 public class PartyMemberUI : MonoBehaviour
 {
     [SerializeField] Text nameText;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum GameState { FreeRoam, Battle, Dialog }
 
+
+
 public class GameController : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
@@ -13,7 +15,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-        ConditionsDB.Init();
+        ConditionsDB.Init(); //initializes the conditions and status effects data base
     }
 
     private void Start()
@@ -32,24 +34,26 @@ public class GameController : MonoBehaviour
         };
     }
 
+    //begins a battle
     void StartBattle()
     {
         state = GameState.Battle;
-        battleSystem.gameObject.SetActive(true);
-        worldCamera.gameObject.SetActive(false);
+        battleSystem.gameObject.SetActive(true); //sets active camera to the arena view
+        worldCamera.gameObject.SetActive(false); //deactivates overworld camera view
 
-        var playerParty = playerController.GetComponent<PokemonParty>();
-        var wildPokemon = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildPokemon();
+        var playerParty = playerController.GetComponent<PokemonParty>(); //assigns pokemon to the player's party from player data
+        var wildPokemon = FindObjectOfType<MapArea>().GetComponent<MapArea>().GetRandomWildPokemon(); //populates long grass with wild pokemon to fight
         battleSystem.StartBattle(playerParty, wildPokemon);
     }
 
     void EndBattle(bool won)
     {
         state = GameState.FreeRoam;
-        battleSystem.gameObject.SetActive(false);
-        worldCamera.gameObject.SetActive(true);
+        battleSystem.gameObject.SetActive(false); //deactivates battle camera
+        worldCamera.gameObject.SetActive(true); //sets active camera to overworld 
     }
 
+    //changes the gamestate to reflect whatever state the user is in
     private void Update()
     {
         if(state == GameState.FreeRoam)

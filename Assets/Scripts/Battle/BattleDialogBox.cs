@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Unlikely needs change
+//adjustments can be made way down the line for more responsive behavior
+
 public class BattleDialogBox : MonoBehaviour
 {
     [SerializeField] int lettersPerSecond;
@@ -52,7 +55,7 @@ public class BattleDialogBox : MonoBehaviour
         moveDetails.SetActive(enabled);
     }
 
-    public void UpdateActionSelection(int selectedAction)
+    public void UpdateActionSelection(int selectedAction) //highlights currently selected text option
     {
         for (int i = 0; i < actionTexts.Count; ++i)
         {
@@ -65,7 +68,7 @@ public class BattleDialogBox : MonoBehaviour
         }
     }
 
-    public void UpdateMoveSelection(int selectedMove, Move move)
+    public void UpdateMoveSelection(int selectedMove, Move move) //highlights currently selected text option
     {
         for (int i = 0; i < moveTexts.Count; i++)
         {
@@ -91,7 +94,7 @@ public class BattleDialogBox : MonoBehaviour
         }
     }
 
-    public void SetMoveNames(List<Move> moves)
+    public void SetMoveNames(List<Move> moves) 
     {
         for (int i = 0; i < moveTexts.Count; ++i)
         {

@@ -55,28 +55,28 @@ public class BattleSystem : MonoBehaviour
     }
     */
 
-    void BattleOver(bool won)
+    void BattleOver(bool won) //likely wont be changed
     {
         state = BattleState.BattleOver;
         playerParty.Pokemons.ForEach(p => p.OnBattleOver());
         OnBattleOver(won);
     }
 
-    void ActionSelection()
+    void ActionSelection() //likely wont be changed
     {
         state = BattleState.ActionSelection;
         dialogBox.SetDialog("Choose an action");
         dialogBox.EnableActionSelector(true);
     }
 
-    void OpenPartyScreen()
+    void OpenPartyScreen() //likely wont be changed
     {
         state = BattleState.PartyScreen;
         partyScreen.SetPartyData(playerParty.Pokemons);
         partyScreen.gameObject.SetActive(true);
     }
 
-    void MoveSelection()
+    void MoveSelection() //likely wont be changed
     {
         state = BattleState.MoveSelection;
         dialogBox.EnableActionSelector(false);
@@ -88,7 +88,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator RunTurns(BattleAction playerAction)
     {
         state = BattleState.RunningTurn;
-        if (playerAction == BattleAction.Move)
+        if (playerAction == BattleAction.Move) //checks to see who goes first
         {
             playerUnit.Pokemon.CurrentMove = playerUnit.Pokemon.Moves[currentMove];
             enemyUnit.Pokemon.CurrentMove = enemyUnit.Pokemon.GetRandomMove();
@@ -114,7 +114,7 @@ public class BattleSystem : MonoBehaviour
             if (state == BattleState.BattleOver)
                 yield break;
 
-            if (secondPokemon.HP > 0)
+            if (secondPokemon.HP > 0) //applies effects and statuses at the end of combat
             {
                 //second turn
                 yield return RunMove(secondUnit, firstUnit, secondUnit.Pokemon.CurrentMove);
@@ -126,7 +126,7 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            if (playerAction == BattleAction.SwitchPokemon)
+            if (playerAction == BattleAction.SwitchPokemon) //switch pokemon from party
             {
                 var selectedPokemon = playerParty.Pokemons[currentMember];
                 state = BattleState.Busy;
@@ -159,7 +159,7 @@ public class BattleSystem : MonoBehaviour
     }
     */
 
-    IEnumerator EnemyMove()
+    IEnumerator EnemyMove() //picks random move the enemy can perform
     {
         state = BattleState.RunningTurn;
 
@@ -167,13 +167,14 @@ public class BattleSystem : MonoBehaviour
         yield return RunMove(enemyUnit, playerUnit, move);
 
         //If the battle state was not changed by RunMove, then go to next step.
+        //For edge cases when a pokemon dies due to DoT
         if (state == BattleState.RunningTurn)
             ActionSelection();  
     }
 
-    IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
+    IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move) //Unlikely needs change
     {
-        bool canRunMove = sourceUnit.Pokemon.OnBeforeMove();
+        bool canRunMove = sourceUnit.Pokemon.OnBeforeMove(); //applies status check
         if (!canRunMove)
         {
             yield return ShowStatusChanges(sourceUnit.Pokemon);
@@ -185,14 +186,14 @@ public class BattleSystem : MonoBehaviour
         move.PP--;
         yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name} used {move.Base.Name}");
 
-        if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon))
+        if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon)) //accuracy check
         {
-
+            //attacking animations
             sourceUnit.PlayAttackAnimation();
             yield return new WaitForSeconds(1f);
             targetUnit.PlayHitAnimation();
 
-            if (move.Base.Category == MoveCategory.Status)
+            if (move.Base.Category == MoveCategory.Status) //applies status effects on pokemon's stats
             {
                 yield return RunMoveEffects(move.Base.Effects, sourceUnit.Pokemon, targetUnit.Pokemon, move.Base.Target);
             }
@@ -203,7 +204,7 @@ public class BattleSystem : MonoBehaviour
                 yield return ShowDamageDetails(damageDetails);
             }
 
-            if (move.Base.Secondaries != null && move.Base.Secondaries.Count > 0 && targetUnit.Pokemon.HP >0)
+            if (move.Base.Secondaries != null && move.Base.Secondaries.Count > 0 && targetUnit.Pokemon.HP >0) //checks to see if volatile statuses apply
             {
                 foreach (var secondary in move.Base.Secondaries)
                 {
@@ -213,7 +214,7 @@ public class BattleSystem : MonoBehaviour
                 }
             }
 
-            if (targetUnit.Pokemon.HP <= 0)
+            if (targetUnit.Pokemon.HP <= 0) //death animation
             {
                 yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name} fainted");
                 targetUnit.PlayFaintAnimation();
@@ -230,7 +231,7 @@ public class BattleSystem : MonoBehaviour
         
     }
 
-    IEnumerator RunMoveEffects(MoveEffects effects, Pokemon source, Pokemon target, MoveTarget moveTarget)
+    IEnumerator RunMoveEffects(MoveEffects effects, Pokemon source, Pokemon target, MoveTarget moveTarget) //unlikely to be changed
     {
         //Stat Boosting
         if (effects.Boosts != null)
@@ -259,7 +260,7 @@ public class BattleSystem : MonoBehaviour
         yield return ShowStatusChanges(target);
     }
 
-    IEnumerator RunAfterTurn(BattleUnit sourceUnit)
+    IEnumerator RunAfterTurn(BattleUnit sourceUnit) //unlikely to be changed
     {
         if (state == BattleState.BattleOver)
             yield break;
@@ -280,7 +281,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    bool CheckIfMoveHits(Move move, Pokemon source, Pokemon target)
+    bool CheckIfMoveHits(Move move, Pokemon source, Pokemon target) //likely does not need change
     {
         if (move.Base.AlwaysHits)
             return true;
@@ -312,7 +313,7 @@ public class BattleSystem : MonoBehaviour
         return UnityEngine.Random.Range(1, 101) <= moveAccuracy;
     }
 
-    IEnumerator ShowStatusChanges(Pokemon pokemon)
+    IEnumerator ShowStatusChanges(Pokemon pokemon) //likely does not need change
     {
         while (pokemon.StatusChanges.Count > 0)
         {
@@ -337,7 +338,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    IEnumerator ShowDamageDetails(DamageDetails damageDetails)
+    IEnumerator ShowDamageDetails(DamageDetails damageDetails)  //likely does not need change
     {
         if (damageDetails.Critical >1f)
         {
@@ -353,7 +354,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    public void HandleUpdate()
+    public void HandleUpdate() //will likely not need change
     {
         if (state == BattleState.ActionSelection)
         {
@@ -369,7 +370,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    void HandleActionSelection()
+    void HandleActionSelection() //likely wont need change
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
             ++currentAction;
@@ -410,7 +411,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    void HandleMoveSelection()
+    void HandleMoveSelection() //integrate here
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
             ++currentMove;
@@ -442,7 +443,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    void HandlePartySelection()
+    void HandlePartySelection() //likley wont need change
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
             ++currentMember;
@@ -493,7 +494,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    IEnumerator SwitchPokemon(Pokemon newPokemon)
+    IEnumerator SwitchPokemon(Pokemon newPokemon) //integration here
     {
         if (playerUnit.Pokemon.HP > 0)
         { 
@@ -502,7 +503,7 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        playerUnit.Setup(newPokemon);
+        playerUnit.Setup(newPokemon); //here
         dialogBox.SetMoveNames(newPokemon.Moves);
         yield return dialogBox.TypeDialog($"Go {newPokemon.Base.Name}!");
 

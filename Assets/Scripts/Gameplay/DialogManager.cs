@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Unlikely to be changed
+
 public class DialogManager : MonoBehaviour
 {
     [SerializeField] GameObject dialogBox;

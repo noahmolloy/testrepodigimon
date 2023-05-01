@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//unlikely needs change
+
 [System.Serializable]
 
 public class Pokemon
