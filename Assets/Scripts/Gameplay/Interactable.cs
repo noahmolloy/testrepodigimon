@@ -6,6 +6,6 @@ using UnityEngine;
 
 public interface Interactable
 {
-    void Interact();
+    void Interact(Transform initator);
 }
 

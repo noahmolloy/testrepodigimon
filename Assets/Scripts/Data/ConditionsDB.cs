@@ -16,7 +16,7 @@ public class ConditionsDB
             condition.Id = conditionId;
         }
     }
-    
+
     public static Dictionary<ConditionID, Condition> Conditions { get; set; } = new Dictionary<ConditionID, Condition>()
     {
         {
@@ -54,7 +54,7 @@ public class ConditionsDB
                 OnBeforeMove = (Pokemon pokemon) =>
                 {
                     if(Random.Range(1,5) == 1)
-                    { 
+                    {
                         pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is paralyzed and can't move!");
                         return false;
                     }
@@ -150,6 +150,18 @@ public class ConditionsDB
         }
 
     };
+
+    public static float GetStatusBonus(Condition condition)
+    {
+        if (condition == null)
+            return 1f;
+        else if (condition.Id == ConditionID.slp || condition.Id == ConditionID.frz)
+            return 2f;
+        else if (condition.Id == ConditionID.par || condition.Id == ConditionID.psn || condition.Id == ConditionID.brn)
+            return 1.5f;
+
+        return 1f;
+    }
 }
 
 public enum ConditionID

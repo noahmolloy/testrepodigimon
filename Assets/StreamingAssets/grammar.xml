@@ -1,0 +1,89 @@
+<grammar version="1.0" xml:lang="en-US" root="moveCommand" xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="moveCommand">
+    <ruleref uri="#pokemonNames" />
+    <item> use </item>
+    <ruleref uri="#pokemonMoves" />
+  </rule>
+
+  <rule id="pokemonNames">
+    <one-of>
+      <item> Bulbasaur </item>
+      <item> Ivysaur </item>
+      <item> Venusaur </item>
+	  <item> Charmander </item>
+	  <item> Charmeleon </item>
+	  <item> Charizard </item>
+	  <item> Squirtle </item>
+	  <item> Wartortle </item>
+	  <item> Blastoise </item>
+	  <item> Caterpie </item>
+	  <item> Metapod </item>
+	  <item> Butterfree </item>
+	  <item> Weedle </item>
+	  <item> Kakuna </item>
+	  <item> Beedrill </item>
+	  <item> Pidgey </item>
+	  <item> Pidgeotto </item>
+	  <item> Pidgeot </item>
+	  <item> Rattata </item>
+	  <item> Raticate </item>
+	  <item> Spearow </item>
+	  <item> Fearow </item>
+	  <item> Pikachu </item>
+	  <item> Raichu </item>
+	  <item> Jigglypuff </item>
+    </one-of>
+  </rule>
+
+  <rule id="pokemonMoves">
+    <one-of>
+      <item> "Aerial Ace" </item>
+      <item> Assurance </item>
+      <item> Bite </item>
+      <item> "Bug Bite" </item>
+	  <item> "Bug Buzz" </item>
+      <item> Crunch </item>
+      <item> "Dragon Breath" </item>
+      <item> "Drill Peck" </item>
+	  <item> Ember </item>
+      <item> "Feather Dance" </item>
+      <item> "Fell Stinger" </item>
+      <item> "Fire Fang" </item>
+	  <item> "Flash Cannon" </item>
+      <item> Growl </item>
+      <item> Gust </item>
+      <item> Harden </item>
+	  <item> Hurricane </item>
+      <item> "Hydro Pump" </item>
+      <item> "Nasty Plot" </item>
+      <item> Nuzzle </item>
+	  <item> Peck </item>
+      <item> "Petal Blizzard" </item>
+      <item> "Poison Powder" </item>
+      <item> "Poison Sting" </item>
+	  <item> "Quick Attack" </item>
+      <item> "Razor Leaf" </item>
+      <item> "Sand Attack" </item>
+      <item> Scratch </item>
+	  <item> "Seed Bomb" </item>
+	  <item> Sing </item>
+	  <item> Slash </item>
+	  <item> "Solar Beam" </item>
+	  <item> Spark </item>
+	  <item> "String Shot" </item>
+	  <item> "Super Sonic" </item>
+	  <item> Tackle </item>
+	  <item> "Tail Whip" </item>
+	  <item> Thunderbolt </item>
+	  <item> "Thunder Punch" </item>
+	  <item> Thundershock </item>
+	  <item> "Thunder Wave" </item>
+	  <item> "Vine Whip" </item>
+	  <item> "Water Gun" </item>
+	  <item> "Water Pulse" </item>
+	  <item> "Wing Attack" </item>
+    </one-of>
+  </rule>
+
+</grammar>
