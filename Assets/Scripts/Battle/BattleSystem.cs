@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using DG.Tweening;
+using M2MqttUnity;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
 public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, PartyScreen, AboutToUse, BattleOver }
 public enum BattleAction { Move, SwitchPokemon, UseItem, Run }
@@ -32,6 +35,10 @@ public class BattleSystem : MonoBehaviour
     int currentMember;
     bool aboutToUseChoice = true;
 
+    /// <summary>
+    private string recog = String.Empty;
+    /// </summary>
+
     PokemonParty playerParty;
     PokemonParty trainerParty;
     Pokemon wildPokemon;
@@ -48,6 +55,21 @@ public class BattleSystem : MonoBehaviour
         grammarRecognizer.OnPhraseRecognized += RecognizedSpeech;
         grammarRecognizer.Start();
         Debug.Log("started speech");
+
+        ////
+        MqttClient client = new MqttClient("mqtt.eclipseprojects.io");
+        client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+        client.Connect("");
+
+        client.Subscribe(new string[] { "Team-2/Digimon/recog" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
+        ///
+
+    }
+
+    void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+    {
+        recog = System.Text.Encoding.UTF8.GetString(e.Message);
+        Debug.Log(recog);
     }
 
     public void StartBattle(PokemonParty playerParty, Pokemon wildPokemon)
@@ -512,6 +534,11 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.UpdateActionSelection(currentAction);
 
+        if (recog == "1")
+        {
+            MoveSelection();
+            recog = String.Empty;
+        }
 
         //Replace this section for speech recognition
         if (Input.GetKeyDown(KeyCode.Z))
@@ -698,6 +725,22 @@ public class BattleSystem : MonoBehaviour
         string pokemon = playerUnit.Pokemon.Base.Name;
         string pattern1 = @"\b" + pokemon + @"\b";
         Debug.Log(pokemon);
+
+        /*
+        bool action_f = Regex.IsMatch(speech.text, "fight", RegexOptions.IgnoreCase);
+        bool action_b = Regex.IsMatch(speech.text, "bag", RegexOptions.IgnoreCase);
+        bool action_p = Regex.IsMatch(speech.text, "party", RegexOptions.IgnoreCase);
+        bool action_r = Regex.IsMatch(speech.text, "run", RegexOptions.IgnoreCase);
+        */
+
+        if (action_f && state == BattleState.ActionSelection)
+        {
+            MoveSelection();
+        }
+        if (action_b && state == BattleState.ActionSelection)
+        {
+
+        }
 
         for (int i = 0; i < playerUnit.Pokemon.Moves.Count; i++)
         {
