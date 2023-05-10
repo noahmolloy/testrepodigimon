@@ -534,9 +534,10 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.UpdateActionSelection(currentAction);
 
-        if (recog == "1")
+        if (recog == "1" && state == BattleState.ActionSelection)
         {
-            MoveSelection();
+            //MoveSelection();
+            StartCoroutine(RunTurns(BattleAction.UseItem));
             recog = String.Empty;
         }
 
@@ -733,7 +734,7 @@ public class BattleSystem : MonoBehaviour
         bool action_r = Regex.IsMatch(speech.text, "run", RegexOptions.IgnoreCase);
         */
 
-        if (action_f && state == BattleState.ActionSelection)
+        /*if (action_f && state == BattleState.ActionSelection)
         {
             MoveSelection();
         }
@@ -741,7 +742,7 @@ public class BattleSystem : MonoBehaviour
         {
 
         }
-
+        */
         for (int i = 0; i < playerUnit.Pokemon.Moves.Count; i++)
         {
             string moves = playerUnit.Pokemon.Moves[i].Base.Name;
