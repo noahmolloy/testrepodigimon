@@ -14,7 +14,7 @@ public class PartyScreen : MonoBehaviour
 
     public void Init()
     {
-        memberSlots = GetComponentsInChildren<PartyMemberUI>();
+        memberSlots = GetComponentsInChildren<PartyMemberUI>(true);
     }
 
     public void SetPartyData(List<Pokemon> pokemons)
@@ -25,6 +25,7 @@ public class PartyScreen : MonoBehaviour
         {
             if(i < pokemons.Count)
             {
+                memberSlots[i].gameObject.SetActive(true);
                 memberSlots[i].SetData(pokemons[i]);
             }
             else

@@ -9,11 +9,22 @@ public class Character : MonoBehaviour
 
     public bool IsMoving { get; private set; }
 
+    public float OffsetY { get; private set; } = 0.3f;
+
     CharacterAnimator animator;
 
     private void Awake()
     {
         animator = GetComponent<CharacterAnimator>();
+        SetPositionAndSnapToTile(transform.position);
+    }
+
+    public void SetPositionAndSnapToTile(Vector2 pos) //orients characters in gamespace
+    {
+        pos.x = Mathf.Floor(pos.x) + 0.5f; //x-axis centering
+        pos.y = Mathf.Floor(pos.y) + 0.5f + OffsetY;
+
+        transform.position = pos;
     }
 
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver=null)
