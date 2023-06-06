@@ -9,6 +9,7 @@ using DG.Tweening;
 using M2MqttUnity;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using UnityEditor.Scripting.Python;
 
 public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, PartyScreen, AboutToUse, BattleOver }
 public enum BattleAction { Move, SwitchPokemon, UseItem, Run }
@@ -36,7 +37,9 @@ public class BattleSystem : MonoBehaviour
     bool aboutToUseChoice = true;
 
     /// <summary>
+    /// mqtt stuff
     private string recog = String.Empty;
+    private string visual = String.Empty;
     /// </summary>
 
     PokemonParty playerParty;
@@ -57,19 +60,31 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("started speech");
 
         ////
+
+        string[] mqtt_topic = { "Team-2/Digimon/recog", "Team-2/Digimon/visual" };
+        byte[] mqtt_qosLevels = { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE };
+
         MqttClient client = new MqttClient("mqtt.eclipseprojects.io");
         client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
         client.Connect("");
+        client.Subscribe(mqtt_topic, mqtt_qosLevels);
 
-        client.Subscribe(new string[] { "Team-2/Digimon/recog" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_LEAST_ONCE });
         ///
-
+        PythonRunner.RunFile($"{Application.dataPath}/visual_recog_mqtt_out.py");
     }
 
     void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
     {
-        recog = System.Text.Encoding.UTF8.GetString(e.Message);
-        Debug.Log(recog);
+        if (e.Topic == "Team-2/Digimon/recog")
+        {
+            recog = System.Text.Encoding.UTF8.GetString(e.Message);
+            Debug.Log(recog);
+        }
+        else if (e.Topic == "Team-2/Digimon/visual")
+        {
+            visual = System.Text.Encoding.UTF8.GetString(e.Message);
+            Debug.Log(visual);
+        }
     }
 
     public void StartBattle(PokemonParty playerParty, Pokemon wildPokemon)
@@ -159,9 +174,10 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.BattleOver;
         playerParty.Pokemons.ForEach(p => p.OnBattleOver());
         OnBattleOver(won);
+        PhraseRecognitionSystem.Shutdown();
 
         //temporary fix for bug where encountering a wild pokemon after trainer battle
-        if(isTrainerBattle)
+        if (isTrainerBattle)
         {
             isTrainerBattle = false;
         }
@@ -226,7 +242,11 @@ public class BattleSystem : MonoBehaviour
             yield return RunMove(firstUnit, secondUnit, firstUnit.Pokemon.CurrentMove);
             yield return RunAfterTurn(firstUnit);
             if (state == BattleState.BattleOver)
+            {
+                PhraseRecognitionSystem.Shutdown();
                 yield break;
+            }
+                
 
             if (secondPokemon.HP > 0) //applies effects and statuses at the end of combat
             {
@@ -234,7 +254,10 @@ public class BattleSystem : MonoBehaviour
                 yield return RunMove(secondUnit, firstUnit, secondUnit.Pokemon.CurrentMove);
                 yield return RunAfterTurn(secondUnit);
                 if (state == BattleState.BattleOver)
+                {
+                    PhraseRecognitionSystem.Shutdown();
                     yield break;
+                }
             }
 
         }
@@ -263,7 +286,10 @@ public class BattleSystem : MonoBehaviour
             yield return RunMove(enemyUnit, playerUnit, enemyMove);
             yield return RunAfterTurn(enemyUnit);
             if (state == BattleState.BattleOver)
+            {
+                PhraseRecognitionSystem.Shutdown();
                 yield break;
+            }
         }
 
         if (state != BattleState.BattleOver)
@@ -388,7 +414,10 @@ public class BattleSystem : MonoBehaviour
     IEnumerator RunAfterTurn(BattleUnit sourceUnit) //unlikely to be changed
     {
         if (state == BattleState.BattleOver)
+        {
+            PhraseRecognitionSystem.Shutdown();
             yield break;
+        }
         //pauses the game logic if u go into like ur bag or party screen
         yield return new WaitUntil(() => state == BattleState.RunningTurn);
 
@@ -752,6 +781,7 @@ public class BattleSystem : MonoBehaviour
             bool m = Regex.IsMatch(speech.text, pattern1, RegexOptions.IgnoreCase);
             bool n = Regex.IsMatch(speech.text, pattern2, RegexOptions.IgnoreCase);
             currentMove = i;
+            dialogBox.UpdateMoveSelection(currentMove, playerUnit.Pokemon.Moves[currentMove]);
 
             if (m && n && state == BattleState.MoveSelection)
             {

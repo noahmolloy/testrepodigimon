@@ -11,7 +11,7 @@ public class NPCController : MonoBehaviour, Interactable
     [SerializeField] float timeBetweenPattern;
 
     NPCState state;
-    float idleTimer =0f ;
+    float idleTimer = 0f;
     int currentPattern = 0;
 
     Character character;

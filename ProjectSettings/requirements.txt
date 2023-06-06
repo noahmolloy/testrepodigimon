@@ -1,5 +1,6 @@
 mediapipe==0.10.0
 numpy==1.24.3
 opencv-python==4.7.0.72
+paho-mqtt==1.6.1
 pip==23.1.2
 wheel==0.40.0

@@ -18,12 +18,12 @@ public class CharacterAnimator : MonoBehaviour
     public bool IsMoving { get; set; }
 
     //States
-    SpriteAnimator walkDownAnim;
-    SpriteAnimator walkUpAnim;
-    SpriteAnimator walkRightAnim;
-    SpriteAnimator walkLeftAnim;
+    public SpriteAnimator walkDownAnim;
+    public SpriteAnimator walkUpAnim;
+    public SpriteAnimator walkRightAnim;
+    public SpriteAnimator walkLeftAnim;
 
-    SpriteAnimator currentAnim;
+    public SpriteAnimator currentAnim;
 
     bool wasPreviouslyMoving;
 
@@ -46,13 +46,13 @@ public class CharacterAnimator : MonoBehaviour
     {
         var prevAnim = currentAnim;
 
-        if (MoveX == 1)
+        if (MoveX == 1 && MoveY == 0)
             currentAnim = walkRightAnim;
-        else if (MoveX == -1)
+        else if (MoveX == -1 && MoveY == 0)
             currentAnim = walkLeftAnim;
-        else if (MoveY == 1)
+        else if (MoveY == 1 && MoveX == 0)
             currentAnim = walkUpAnim;
-        else if (MoveY == -1)
+        else if (MoveY == -1 && MoveX == 0)
             currentAnim = walkDownAnim;
 
         if (currentAnim != prevAnim || IsMoving != wasPreviouslyMoving) //fixes bug that allowed movement w/o animation
@@ -69,13 +69,26 @@ public class CharacterAnimator : MonoBehaviour
     public void SetFacingDirection(FacingDirection dir)
     {
         if (dir == FacingDirection.Right)
+        {
             MoveX = 1;
+            MoveY = 0;
+        }
+            
         else if (dir == FacingDirection.Left)
+        {
             MoveX = -1;
+            MoveY = 0;
+        }
         else if (dir == FacingDirection.Up)
+        {
+            MoveX = 0;
             MoveY = 1;
+        }
         else if (dir == FacingDirection.Down)
+        {
+            MoveX = 0;
             MoveY = -1;
+        }
     }
 
     public FacingDirection DefaultDirection
