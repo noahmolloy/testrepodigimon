@@ -53,3 +53,5 @@ public class GameLayers : MonoBehaviour
         get => grassLayer | fovLayer | portalLayer;
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

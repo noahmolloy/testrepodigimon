@@ -544,10 +544,10 @@ public class BattleSystem : MonoBehaviour
             HandleAboutToUse();
         }
         //Throw pokeball override
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            StartCoroutine(ThrowPokeball());
-        }
+        //if(Input.GetKeyDown(KeyCode.T))
+        //{
+          //  StartCoroutine(ThrowPokeball());
+        //}
     }
 
     void HandleActionSelection() //likely wont need change
@@ -925,3 +925,5 @@ public class BattleSystem : MonoBehaviour
 
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

@@ -9,3 +9,5 @@ public class EssentialObjects : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

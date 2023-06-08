@@ -104,3 +104,5 @@ public class TrainerController : MonoBehaviour, Interactable
         get => sprite;
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

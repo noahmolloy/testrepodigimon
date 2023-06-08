@@ -9,3 +9,5 @@ public class TrainerFov : MonoBehaviour, IPlayerTriggerable
         GameController.Instance.OnEnterTrainersView(GetComponentInParent<TrainerController>());
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

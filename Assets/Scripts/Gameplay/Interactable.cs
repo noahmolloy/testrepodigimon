@@ -9,3 +9,4 @@ public interface Interactable
     void Interact(Transform initator);
 }
 
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

@@ -117,3 +117,5 @@ public class GameController : MonoBehaviour
         }
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

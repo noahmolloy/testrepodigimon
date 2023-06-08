@@ -95,3 +95,5 @@ public class Character : MonoBehaviour
         get => animator;
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

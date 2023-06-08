@@ -112,3 +112,5 @@ public class BattleUnit : MonoBehaviour
         yield return sequence.WaitForCompletion();
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

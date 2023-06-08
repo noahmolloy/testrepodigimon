@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab889c2871e25fe41b132e1492a2f511, type: 3}
   m_Name: Thunderbolt
   m_EditorClassIdentifier: 
-  name: 
+  name: Thunderbolt
   description: 
   type: 4
   power: 90

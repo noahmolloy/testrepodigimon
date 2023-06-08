@@ -75,3 +75,5 @@ public class DialogManager : MonoBehaviour
         isTyping = false;
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

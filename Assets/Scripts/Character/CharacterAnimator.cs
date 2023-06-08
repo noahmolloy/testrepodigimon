@@ -98,3 +98,5 @@ public class CharacterAnimator : MonoBehaviour
 }
 
 public enum FacingDirection { Up, Down, Left, Right }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

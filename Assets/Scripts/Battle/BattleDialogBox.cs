@@ -132,3 +132,5 @@ public class BattleDialogBox : MonoBehaviour
         }
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

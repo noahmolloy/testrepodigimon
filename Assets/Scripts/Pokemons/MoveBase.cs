@@ -141,3 +141,5 @@ public enum MoveTarget
 {
     Foe, Self, 
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

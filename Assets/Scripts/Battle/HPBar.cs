@@ -28,3 +28,5 @@ public class HPBar : MonoBehaviour
         health.transform.localScale = new Vector3(newHp, 1f);
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

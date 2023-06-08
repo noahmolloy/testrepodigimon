@@ -192,3 +192,5 @@ public class TypeChart
         return chart[row][col];
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

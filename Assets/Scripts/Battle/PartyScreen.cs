@@ -57,3 +57,5 @@ public class PartyScreen : MonoBehaviour
         messageText.text = message;
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

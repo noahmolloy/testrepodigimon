@@ -39,3 +39,5 @@ public class ScenesManager : MonoBehaviour
         SceneManager.LoadScene(Scene.MainMenu.ToString());
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

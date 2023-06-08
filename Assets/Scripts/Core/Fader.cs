@@ -23,3 +23,5 @@ public class Fader : MonoBehaviour
         yield return image.DOFade(0f, time).WaitForCompletion();
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

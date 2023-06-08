@@ -48,3 +48,5 @@ public class Portal : MonoBehaviour, IPlayerTriggerable
 }
 
 public enum DestinationIdentifier { A, B, C, D, E, F, G }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

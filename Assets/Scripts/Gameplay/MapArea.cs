@@ -15,3 +15,5 @@ public class MapArea : MonoBehaviour
         return wildPokemon;
     }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

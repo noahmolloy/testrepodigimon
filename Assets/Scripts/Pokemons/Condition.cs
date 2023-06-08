@@ -21,3 +21,5 @@ public class Condition
 
     public Action<Pokemon> OnStart { get; set; }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

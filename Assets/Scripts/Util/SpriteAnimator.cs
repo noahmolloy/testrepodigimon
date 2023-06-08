@@ -42,3 +42,5 @@ public class SpriteAnimator
     }
 
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

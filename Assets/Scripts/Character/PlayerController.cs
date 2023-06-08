@@ -163,3 +163,5 @@ public class PlayerController : MonoBehaviour
 
     public Character Character => character;
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

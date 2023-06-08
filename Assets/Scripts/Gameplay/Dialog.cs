@@ -14,3 +14,5 @@ public class Dialog
         get { return lines; }
     }
  }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)

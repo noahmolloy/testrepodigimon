@@ -295,3 +295,5 @@ public class DamageDetails
 
     public float TypeEffectiveness { get; set; }
 }
+
+//Reference: Pokemon in Unity Series on Youtube (Game Dev Experiments)
